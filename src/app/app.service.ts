@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const data_URL = 'http://10.10.114.97:5555';
+const data_URL = 'http://10.10.114.97:5556/microFrontend';
 
 @Injectable()
 export class AppService {
@@ -18,8 +18,8 @@ export class AppService {
     _editRecord(id, rec) {
         return this.http.put(data_URL + "/edit/" + id, rec);
     }
-    
-    recordGST(id, rec){
+
+    recordGST(id, rec) {
         return this.http.put(data_URL + "/addGST/" + id, rec);
     }
 }

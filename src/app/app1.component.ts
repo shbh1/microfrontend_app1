@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { AppService } from "./app.service";
 import * as socketIo from 'socket.io-client';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
   selector: 'app1-root',
   templateUrl: './app.component.html',
@@ -12,26 +13,33 @@ export class AppComponent implements OnInit {
   // @ts-ignore
   assetsBase = __webpack_public_path__;
   object; controls: FormArray;
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private changeDetectorRef: ChangeDetectorRef) {
   }
   ngOnInit() {
-    const socket = socketIo('http://10.10.114.97:5555');
-    socket.on('dataRefresh', (dt) => {
-      this.appService.getData().subscribe(data => { this.object = data });
+    window.addEventListener("DataUpdated", () => {
+      this.appService.getData().subscribe(data => {
+        this.object = data;
+        this.changeDetectorRef.detectChanges();
+      });
     });
     this.appService.getData().subscribe(data => { this.object = data });
   }
   deleteRecord(id) {
+    var res;
     this.appService._deleteRecord(id).subscribe(data => {
-      alert("Record Deleted !!");
+      res = data;
+      if (res.message) {
+        event = new Event('DataUpdated');
+        window.dispatchEvent(event);
+      }
     });
   }
   editRecord(id, rec) {
-    this.appService._editRecord(id, rec).subscribe(data => {
-    });
+    var event = new CustomEvent('oldData', { "detail": { "id": id, ...rec } });
+    window.dispatchEvent(event);
   }
   addGST(id, rec) {
-    this.appService.recordGST(id, rec).subscribe(data => {
-    });
+    var event = new CustomEvent('addGST', { "detail": { "id": id, ...rec } });
+    window.dispatchEvent(event);
   }
 }

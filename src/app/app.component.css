@@ -42,3 +42,25 @@ table {
   .space-evenly { 
     justify-content: space-evenly; 
   }
+  .gstWrapper{
+    position: relative;
+  display: inline-block;
+  }
+.gstWrapper .text {
+  visibility: hidden;
+  background-color: black;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px 0;
+  position: absolute;
+  z-index: 1;
+  width: 100px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -50px;
+}
+
+.gstWrapper:hover .text {
+  visibility: visible;
+}

@@ -17,7 +17,7 @@ export class TriggerService {
     socket: Socket;
     observer: Observer<string>;
     checkTrigger(): Observable<string> {
-        this.socket = socketIo("http://10.10.114.97:5555", { "flag": true });
+        this.socket = socketIo("http://10.10.114.97:5556", { "flag": true });
         this.socket.on('responseData', () => {
             this.observer.next("");
         });

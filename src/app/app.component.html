@@ -7,14 +7,19 @@
       <th>GST</th>
       <th></th>
     </tr>
-    <tr *ngFor="let rec of object.Data; let i = index">
+    <tr *ngFor="let rec of object.Data;let i = index">
       <td>{{rec.company}} </td>
       <td>{{rec.contact}}</td>
       <td>{{rec.country}}</td>
       <td>{{rec.gst}}</td>
       <td>
         <div class="flex-container space-evenly">
-          <img *ngIf="!rec['gst']" class="gst" src='../assets/forex.jpg' (click)="addGST(i,rec)">
+          <span class="gstWrapper">
+            <img *ngIf="!rec['gst']" class="gst"
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMCQo1NWIzLQ9gr_DZdvTDMv5Fe5_2BhS6h8Ue_AfYxWhQMg4Q&s'
+              (click)="addGST(i,rec)">
+            <span class="text">Add GST</span>
+          </span>
           <img class="edit" src='../assets/edit-icon-17.jpg' (click)="editRecord(i,rec)">
           <img class="delete" src='../assets/images.png' (click)="deleteRecord(i)">
         </div>
