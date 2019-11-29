@@ -1,0 +1,24 @@
+<div *ngIf="object">
+  <table>
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Country</th>
+      <th>GST</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let rec of object.Data; let i = index">
+      <td>{{rec.company}} </td>
+      <td>{{rec.contact}}</td>
+      <td>{{rec.country}}</td>
+      <td>{{rec.gst}}</td>
+      <td>
+        <div class="flex-container space-evenly">
+          <img *ngIf="!rec['gst']" class="gst" src='../assets/forex.jpg' (click)="addGST(i,rec)">
+          <img class="edit" src='../assets/edit-icon-17.jpg' (click)="editRecord(i,rec)">
+          <img class="delete" src='../assets/images.png' (click)="deleteRecord(i)">
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
